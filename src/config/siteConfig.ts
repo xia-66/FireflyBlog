@@ -63,7 +63,7 @@ export const siteConfig: SiteConfig = {
   // 页面开关配置 - 控制特定页面的访问权限，设为false会返回404
   pages: {
     anime: true, // 追番页面开关
-    sponsor: true, // 赞助页面开关
+    sponsor: false, // 赞助页面开关
     guestbook: true, // 留言板页面开关，需要配置评论系统
   },
 
