@@ -1,0 +1,1287 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>黑羽 - Blog</title><description>Your description here.</description><link>https://firefly.cuteleaf.cn/</link><language>zh_CN</language><item><title>Firefly 简单使用指南</title><link>https://firefly.cuteleaf.cn/posts/guide/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/guide/</guid><description>如何使用 Firefly 博客模板。</description><pubDate>Sat, 11 Oct 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;这个博客模板是基于 &lt;a href=&quot;https://astro.build/&quot;&gt;Astro&lt;/a&gt; 构建的。对于本指南中未提及的内容，您可以在 &lt;a href=&quot;https://docs.astro.build/&quot;&gt;Astro 文档&lt;/a&gt; 中找到答案。&lt;/p&gt;
+&lt;h2&gt;文章的 Front-matter&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: 我的第一篇博客文章
+published: 2023-09-09
+description: 这是我新 Astro 博客的第一篇文章。
+image: ./cover.jpg
+tags: [前端, 开发]
+category: 前端开发
+draft: false
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;title&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章标题。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;published&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章发布日期。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;pinned&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;是否将此文章置顶在文章列表顶部。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;description&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章的简短描述。显示在首页上。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;image&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章封面图片路径。&amp;lt;br/&amp;gt;1. 以 &lt;code&gt;http://&lt;/code&gt; 或 &lt;code&gt;https://&lt;/code&gt; 开头：使用网络图片&amp;lt;br/&amp;gt;2. 以 &lt;code&gt;/&lt;/code&gt; 开头：&lt;code&gt;public&lt;/code&gt; 目录中的图片&amp;lt;br/&amp;gt;3. 不带任何前缀：相对于 markdown 文件的路径&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章标签。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;category&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章分类。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;licenseName&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章内容的许可证名称。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;author&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章作者。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;sourceLink&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文章内容的来源链接或参考。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;draft&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;如果这篇文章仍是草稿，则不会显示。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;slug&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;自定义文章 URL 路径。如果不设置，将使用文件名作为 URL。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;文章文件的放置位置&lt;/h2&gt;
+&lt;p&gt;您的文章文件应放置在 &lt;code&gt;src/content/posts/&lt;/code&gt; 目录中。您也可以创建子目录来更好地组织您的文章和资源。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;src/content/posts/
+├── post-1.md
+└── post-2/
+    ├── cover.png
+    └── index.md
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;自定义文章 URL (Slug)&lt;/h2&gt;
+&lt;h3&gt;什么是 Slug？&lt;/h3&gt;
+&lt;p&gt;Slug 是文章 URL 路径的自定义部分。如果不设置 slug，系统将使用文件名作为 URL。&lt;/p&gt;
+&lt;h3&gt;Slug 使用示例&lt;/h3&gt;
+&lt;h4&gt;示例 1：使用文件名作为 URL&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: 我的第一篇博客文章
+published: 2023-09-09
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;文件：&lt;code&gt;src/content/posts/my-first-blog-post.md&lt;/code&gt;
+URL：&lt;code&gt;/posts/my-first-blog-post&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;示例 2：自定义 Slug&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: 我的第一篇博客文章
+published: 2023-09-09
+slug: hello-world
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;文件：&lt;code&gt;src/content/posts/my-first-blog-post.md&lt;/code&gt;
+URL：&lt;code&gt;/posts/hello-world&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;示例 3：中文标题使用英文 Slug&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: 如何使用 Firefly 博客主题
+published: 2023-09-09
+slug: how-to-use-firefly-blog-theme
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;文件：&lt;code&gt;src/content/posts/firefly-guide.md&lt;/code&gt;
+URL：&lt;code&gt;/posts/how-to-use-firefly-blog-theme&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Slug 使用建议&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;使用英文和连字符&lt;/strong&gt;：&lt;code&gt;my-awesome-post&lt;/code&gt; 而不是 &lt;code&gt;my awesome post&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保持简洁&lt;/strong&gt;：避免过长的 slug&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;具有描述性&lt;/strong&gt;：让 URL 能够反映文章内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;避免特殊字符&lt;/strong&gt;：只使用字母、数字和连字符&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保持一致性&lt;/strong&gt;：在整个博客中使用相似的命名模式&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;注意事项&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Slug 一旦设置并发布，建议不要随意更改，以免影响 SEO 和已存在的链接&lt;/li&gt;
+&lt;li&gt;如果多个文章使用相同的 slug，后面的文章会覆盖前面的&lt;/li&gt;
+&lt;li&gt;Slug 会自动转换为小写&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded></item><item><title>WSL2相关操作</title><link>https://firefly.cuteleaf.cn/posts/post-131/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-131/</guid><pubDate>Tue, 23 Sep 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;常用的 WSL 管理命令&lt;/h1&gt;
+&lt;p&gt;以下是在 Windows PowerShell 或 CMD 中管理 WSL (Windows Subsystem for Linux) 的一些常用命令。&lt;/p&gt;
+&lt;h3&gt;1. 查看已安装的 WSL 发行版&lt;/h3&gt;
+&lt;p&gt;这个命令会列出所有你已经安装的 Linux 发行版，并用 &lt;code&gt;(默认)&lt;/code&gt; 标记出默认启动的那个。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl -l
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;2. 查看 WSL 及内核版本&lt;/h3&gt;
+&lt;p&gt;获取 WSL 核心组件的详细版本信息，这在排查问题时非常有用。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl --version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;3. 查看正在运行的发行版&lt;/h3&gt;
+&lt;p&gt;只显示当前处于“正在运行”状态的发行版。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl -l --running
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;4. 立即关闭所有 WSL 实例&lt;/h3&gt;
+&lt;p&gt;这个命令会强制关闭所有正在运行的 Linux 发行版和 WSL 2 轻量级实用工具虚拟机。当你觉得 WSL 行为异常或需要释放资源时可以使用。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl --shutdown
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;5. 备份 (导出) 发行版&lt;/h3&gt;
+&lt;p&gt;将指定的发行版完整地打包成一个 &lt;code&gt;.tar&lt;/code&gt; 文件，用于备份或迁移。在执行此操作前，最好先使用 &lt;code&gt;wsl --shutdown&lt;/code&gt; 确保该发行版已停止运行。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl --export &amp;lt;DistributionName&amp;gt; &amp;lt;FilePath.tar&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;示例:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl --export Ubuntu-22.04 D:\\temp\\Ubuntu-22.04.tar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;6. 注销 (卸载) 发行版&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;注意：这是一个危险操作！&lt;/strong&gt; 它会从系统中彻底删除指定的 Linux 发行版及其包含的所有数据，并且&lt;strong&gt;无法恢复&lt;/strong&gt;。操作后，所有文件、安装的软件和配置都会丢失。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl --unregister &amp;lt;DistributionName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;示例:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wsl --unregister Ubuntu-22.04
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;lt;hr style=&quot;height:4px; border:none; background-image:linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);&quot;&amp;gt; &amp;lt;/hr&amp;gt;&lt;/p&gt;
+&lt;h3&gt;配置代理&lt;/h3&gt;
+&lt;p&gt;你现在使用的 &lt;code&gt;export&lt;/code&gt; 命令只在当前终端窗口有效。关闭窗口后设置就没了。为了让你每次打开 WSL2 都能自动配置好代理，你需要把设置写入到 shell 的配置文件中。&lt;/p&gt;
+&lt;p&gt;但还有一个问题：&lt;code&gt;172.29.224.1&lt;/code&gt; 这个 IP 在你重启电脑或重启 WSL 服务后&lt;strong&gt;有可能会改变&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;所以，我们需要一个能&lt;strong&gt;自动获取&lt;/strong&gt;这个真实 IP 并设置代理的脚本。下面是更稳健的方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开你的 shell 配置文件。如果你用的是默认的 bash，就运行：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;nano ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(如果你用的是 zsh，就是 &lt;code&gt;nano ~/.zshrc&lt;/code&gt;)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在文件的最底部，添加下面这几行代码：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# WSL2 Proxy configuration
+export hostip=$(ip route | grep default | awk \&apos;{print $3}\&apos;)
+export ALL_PROXY=\&quot;http://$hostip:7890\&quot;
+export http_proxy=\&quot;http://$hostip:7890\&quot;
+export https_proxy=\&quot;http://$hostip:7890\&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;说明：&lt;code&gt;ip route | grep default | awk \&apos;{print $3}\&apos;&lt;/code&gt; 这条命令比之前从 &lt;code&gt;/etc/resolv.conf&lt;/code&gt; 读取要可靠得多，它会直接从路由表里找到 Windows 主机的 IP。&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;按 &lt;code&gt;Ctrl+O&lt;/code&gt; 保存，回车确认，然后按 &lt;code&gt;Ctrl+X&lt;/code&gt; 退出编辑器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;让配置立即生效，运行：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;现在，每次你打开一个新的 WSL2 终端，它都会自动找到正确的 Windows IP 并为你设置好代理。你可以随时通过 &lt;code&gt;curl -I https://www.google.com&lt;/code&gt; 来验证。&lt;/p&gt;
+&lt;p&gt;&amp;lt;hr style=&quot;height:4px; border:none; background-image:linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);&quot;&amp;gt;&amp;lt;/hr&amp;gt;&lt;/p&gt;
+&lt;h3&gt;步骤 1：在你的 Debian (WSL2) 中安装并启动 SSH 服务&lt;/h3&gt;
+&lt;p&gt;默认情况下，WSL2 系统为了安全和轻量，通常不会自带或自启动 SSH 服务。你需要手动安装和开启它。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;更新软件列表并安装 SSH Server&lt;/strong&gt;
+在你的 Debian 终端里运行：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt update
+sudo apt install openssh-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;启动 SSH 服务&lt;/strong&gt;
+安装完成后，SSH 服务不会自动启动，需要手动开启。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;sudo service ssh start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;你可以用下面的命令来检查 SSH 服务的状态，如果看到 &lt;code&gt;active (running)&lt;/code&gt; 就表示成功了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo service ssh status
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;(可选但推荐) 配置 SSH 服务&lt;/strong&gt;
+默认配置通常就能用，但如果你想修改端口（默认为22）或者禁止密码登录等，可以编辑配置文件：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;sudo nano /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修改后记得重启服务：&lt;code&gt;sudo service ssh restart&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;步骤 2：在 FinalShell 中配置连接&lt;/h3&gt;
+&lt;p&gt;现在你的 WSL2 已经准备好了，打开 FinalShell 进行设置。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;新建一个连接（选择 SSH 连接）。&lt;/li&gt;
+&lt;li&gt;填写连接信息：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;名称：&lt;/strong&gt; 随便填，方便你自己识别，比如 &lt;code&gt;My WSL Debian&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;主机 / IP 地址：&lt;/strong&gt; 填写 &lt;code&gt;localhost&lt;/code&gt; 或者 &lt;code&gt;127.0.0.1&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;为什么是 localhost?&lt;/strong&gt;
+WSL2 的一个很棒的特性是，它内部运行的服务端口会自动映射到你的 Windows 主机上。所以你可以直接通过 Windows 的 &lt;code&gt;localhost&lt;/code&gt; 来访问 WSL2 里的服务。你不需要去查找 WSL2 的内部动态 IP 地址。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;端口：&lt;/strong&gt; &lt;code&gt;22&lt;/code&gt; (除非你在上一步修改了 SSH 服务的默认端口)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;用户名：&lt;/strong&gt; 你在 Debian (WSL2) 中的用户名 (就是在终端 &lt;code&gt;@&lt;/code&gt; 前面的那个，比如 &lt;code&gt;heiyu&lt;/code&gt;)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;密码：&lt;/strong&gt; 你在 Debian (WSL2) 中为该用户设置的密码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;点击“连接”，如果一切顺利，FinalShell 就能成功连接到你的 WSL2 系统了。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;一个重要提醒：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;每次你的 WSL2 完全关闭并重新启动后（比如你重启了电脑，或者手动执行了 &lt;code&gt;wsl --shutdown&lt;/code&gt;），SSH 服务&lt;strong&gt;不会&lt;/strong&gt;自动启动。你需要再次进入 Debian 终端手动运行 &lt;code&gt;sudo service ssh start&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果你希望它每次都自动启动，可以将启动命令加入到你的 shell 配置文件中，例如 &lt;code&gt;~/.bashrc&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;编辑文件: &lt;code&gt;nano ~/.bashrc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在文件末尾添加:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# Start SSH server if not running
+if ! pgrep -x \&quot;sshd\&quot; &amp;gt; /dev/null
+then
+sudo service ssh start
+fi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;保存文件并退出。这样每次打开新的终端时，它都会检查并启动 SSH 服务。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&amp;lt;hr style=&quot;height:4px; border:none; background-image:linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);&quot;&amp;gt; &amp;lt;/hr&amp;gt;&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;目标&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;将一个基于普通用户创建的 Linux 系统（如默认的 WSL 或云主机），改造为允许并默认使用 &lt;code&gt;root&lt;/code&gt; 用户通过 SSH 登录，并删除原有的普通用户。&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;操作流程&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4&gt;步骤 1: 从普通用户切换到 Root 权限&lt;/h4&gt;
+&lt;p&gt;首先，你需要临时的 Root 权限来执行系统级别的修改。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 使用 sudo su 命令切换到 root 用户环境。
+# 这需要你输入当前用户的密码。
+sudo su
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;执行成功后，你的命令提示符会从 &lt;code&gt;$&lt;/code&gt; 变为 &lt;code&gt;#&lt;/code&gt;，表示你现在是 Root 用户。&lt;/p&gt;
+&lt;h4&gt;步骤 2: 设置 Root 用户的密码&lt;/h4&gt;
+&lt;p&gt;默认情况下，&lt;code&gt;root&lt;/code&gt; 用户可能没有设置密码或被锁定，无法直接登录。你需要为它创建一个密码。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 在 root 环境下 (#)，执行 passwd 命令
+passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;系统会提示你输入新的 &lt;code&gt;root&lt;/code&gt; 密码并确认。&lt;strong&gt;请务必设置一个强密码并牢记它&lt;/strong&gt;，因为这是你以后登录系统的唯一凭证。&lt;/p&gt;
+&lt;h4&gt;步骤 3: 修改 SSH 配置以允许 Root 登录&lt;/h4&gt;
+&lt;p&gt;接下来，修改 SSH 服务的配置文件，允许 &lt;code&gt;root&lt;/code&gt; 用户通过密码远程登录。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;编辑配置文件&lt;/strong&gt;：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# 使用 nano 或 vim 编辑器打开 sshd_config 文件
+nano /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;找到并修改 &lt;code&gt;PermitRootLogin&lt;/code&gt;&lt;/strong&gt;：
+在文件中找到 &lt;code&gt;#PermitRootLogin prohibit-password&lt;/code&gt; 这一行（或者类似的一行）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;去掉行首的 &lt;code&gt;#&lt;/code&gt; 注释符。&lt;/li&gt;
+&lt;li&gt;将 &lt;code&gt;prohibit-password&lt;/code&gt; 修改为 &lt;code&gt;yes&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;修改后的最终结果应该是：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;PermitRootLogin yes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;保存并退出&lt;/strong&gt;：
+在 &lt;code&gt;nano&lt;/code&gt; 中，按 &lt;code&gt;Ctrl + X&lt;/code&gt;，然后按 &lt;code&gt;Y&lt;/code&gt; 确认保存，最后按 &lt;code&gt;Enter&lt;/code&gt; 退出。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;重启 SSH 服务&lt;/strong&gt;：
+为了让刚才的修改生效，必须重启 SSH 服务。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# 这个命令适用于大多数现代 Linux 发行版
+service ssh restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;步骤 4: 删除原有的普通用户&lt;/h4&gt;
+&lt;p&gt;现在 &lt;code&gt;root&lt;/code&gt; 已经可以登录了，你可以安全地删除原来的用户（例如 &lt;code&gt;heiyu&lt;/code&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;重要提示&lt;/strong&gt;：建议先&lt;strong&gt;新开一个终端窗口&lt;/strong&gt;，用 &lt;code&gt;root&lt;/code&gt; 用户和新设置的密码测试一下 SSH 登录是否成功。确认成功后再执行删除操作，以防万一。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;确保新终端已用 &lt;code&gt;root&lt;/code&gt; 登录成功&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 &lt;code&gt;root&lt;/code&gt; 会话中，终止原用户的所有进程&lt;/strong&gt;：
+如果原用户还存在登录会话或后台进程，删除时会报错。用 &lt;code&gt;pkill&lt;/code&gt; 命令可以干净地终止它们。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# 将 &amp;lt;username&amp;gt; 替换为你要删除的用户名，例如 heiyu
+pkill -u &amp;lt;username&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;删除用户及其家目录&lt;/strong&gt;：
+使用 &lt;code&gt;userdel -r&lt;/code&gt; 命令来彻底删除用户和其相关文件。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;# -r 参数会同时删除用户的家目录 (/home/&amp;lt;username&amp;gt;)
+userdel -r &amp;lt;username&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;执行过程中可能会出现 &lt;code&gt;mail spool not found&lt;/code&gt; 的提示，这是一个正常的警告，表示用户的邮件文件本就不存在，可以忽略。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h3&gt;&lt;strong&gt;总结&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;至此，你已经成功地：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为 &lt;code&gt;root&lt;/code&gt; 用户设置了密码。&lt;/li&gt;
+&lt;li&gt;配置了 SSH 服务，允许 &lt;code&gt;root&lt;/code&gt; 直接登录。&lt;/li&gt;
+&lt;li&gt;彻底删除了原来的普通用户。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;你的系统现在是一个只能由 &lt;code&gt;root&lt;/code&gt; 用户登录的“纯净”环境了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;安全提醒&lt;/strong&gt;：在生产环境或任何暴露在公网的服务器上，&lt;strong&gt;强烈不推荐&lt;/strong&gt;允许 &lt;code&gt;root&lt;/code&gt; 用户通过密码直接登录，这会带来安全风险。更安全的做法是使用密钥登录，并禁用密码登录。但在 WSL 或个人实验环境中，这种配置是方便快捷的。&lt;/p&gt;
+</content:encoded></item><item><title>祈愿致那个时候的你</title><link>https://firefly.cuteleaf.cn/posts/post-126/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-126/</guid><pubDate>Sat, 20 Sep 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;ふたりの想(おも)い出(で)
+把两人之间的回忆&lt;/p&gt;
+&lt;p&gt;かき集(あつ)めたなら
+全部收集起来&lt;/p&gt;
+&lt;p&gt;また泣(な)けてきちゃう
+又一次快哭了出来&lt;/p&gt;
+&lt;p&gt;寂(さび)しさ溢(あふ)れて
+一切充满了寂寞&lt;/p&gt;
+&lt;p&gt;最後(さいご)の恋(こい)だと信(しん)じて願(ねが)った
+我相信这是最后的爱情&lt;/p&gt;
+&lt;p&gt;あの日々(ひび)にウソはなかった
+那些日子不是捏造出来的&lt;/p&gt;
+&lt;p&gt;希望(きぼう)夢(ゆめ)明(あか)るい未来(みらい)
+希望的梦想 光明的未来&lt;/p&gt;
+&lt;p&gt;東京(とうきょう)に持(も)った大(おお)きな期待(きたい)
+在东京时曾怀着大大的期待&lt;/p&gt;
+&lt;p&gt;だけど現実(げんじつ)は甘(あま)くなくて
+但是现实并不甜蜜&lt;/p&gt;
+&lt;p&gt;落(お)ち葉(ば)見(み)つめ深(ふか)く思(おも)いつめてた
+在落叶下又深深地想念起你&lt;/p&gt;
+&lt;p&gt;そんな時(とき)にあなたと出会(であ)って
+在那样的时刻与你相遇&lt;/p&gt;
+&lt;p&gt;いつもあなたに助(たす)けられて
+你一直帮助着我&lt;/p&gt;
+&lt;p&gt;バイトが楽(たの)しみになって
+打工也变得很快乐&lt;/p&gt;
+&lt;p&gt;実(じつ)はシフト被(かぶ)るように狙(ねら)ってた
+其实我是故意和你同一时间打工&lt;/p&gt;
+&lt;p&gt;スタンプ使(つか)いが妙(みょう)に上手(うま)くて
+很熟练印章的使用&lt;/p&gt;
+&lt;p&gt;お化(ば)けも虫(むし)も受(う)け付(け)なくて
+还有害怕妖怪和虫子的你&lt;/p&gt;
+&lt;p&gt;くしゃくしゃの笑顔(えがお)が可愛(かわい)くて
+你那有着一点皱纹的笑容也很美&lt;/p&gt;
+&lt;p&gt;眠(ねむ)れない夜(よる)は君(きみ)のせいで
+有时因为你睡不着&lt;/p&gt;
+&lt;p&gt;この気持(きも)ち今(いま)すぐに伝(つた)えたい
+现在想马上将这份感情传达给你&lt;/p&gt;
+&lt;p&gt;けどバレたくない
+但是我不想被发现&lt;/p&gt;
+&lt;p&gt;どうしたらいいの
+我到底该怎么办&lt;/p&gt;
+&lt;p&gt;迷(まよ)ってるうちに
+趁着我犹豫的时候&lt;/p&gt;
+&lt;p&gt;夜明(よあ)けが来(き)て
+黎明到来&lt;/p&gt;
+&lt;p&gt;馬鹿(ばか)みたいに後悔(こうかい)して
+像傻瓜一样后悔着&lt;/p&gt;
+&lt;p&gt;ふたりの想(おも)い出(で)
+把两人之间的回忆&lt;/p&gt;
+&lt;p&gt;かき集(あつ)めたなら
+全部收集起来&lt;/p&gt;
+&lt;p&gt;また泣(な)けてきちゃう
+又一次快哭了出来&lt;/p&gt;
+&lt;p&gt;寂(さび)しさ溢(あふ)れて
+一切充满了寂寞&lt;/p&gt;
+&lt;p&gt;最後(さいご)の恋(こい)だと信(しん)じて願(ねが)った
+我希望我可以相信最后的爱情&lt;/p&gt;
+&lt;p&gt;あの日々(ひび)にウソはなかった
+那些日子不是捏造出来的&lt;/p&gt;
+&lt;p&gt;帰(かえ)り道(みち)の公園(こうえん)で受(う)けた告白(こくはく)
+归路旁的公园接受了告白&lt;/p&gt;
+&lt;p&gt;ベタすぎるセリフ笑(わら)っちゃった
+我被那些语句逗笑&lt;/p&gt;
+&lt;p&gt;一生(いっしょう)忘(わす)れられない思(おも)い出(で)
+一生也无法忘记的回忆&lt;/p&gt;
+&lt;p&gt;あなたがプレゼントしてくれた
+你将它作为礼物赠与我&lt;/p&gt;
+&lt;p&gt;一日中(いちにちじゅう)ゲームやりこんで
+一起玩了一整天的游戏&lt;/p&gt;
+&lt;p&gt;夜(よる)ご飯(はん)は一緒(いっしょ)に作(つく)って
+夜晚一起做饭&lt;/p&gt;
+&lt;p&gt;贅沢(ぜいたく)なんてしなくたって
+虽然不是很奢侈&lt;/p&gt;
+&lt;p&gt;二人(ふたり)いればそれだけでよくて
+不过我们两个人能在一起就足够了&lt;/p&gt;
+&lt;p&gt;口下手(くちべた)二人(ふたり)が本気(ほんき)で喧嘩(けんか)
+两人笨口拙舌的争吵&lt;/p&gt;
+&lt;p&gt;お互(たが)いブロック通(つう)じない電話(でんわ)
+互不相通的电话&lt;/p&gt;
+&lt;p&gt;本気(ほんき)でぶつかり合(あ)えることが
+冷言相通的时刻&lt;/p&gt;
+&lt;p&gt;どんな愛(いと)しいが気(き)づけなかった
+没有发现任何的爱&lt;/p&gt;
+&lt;p&gt;あなたが教(おし)えてくれたこと
+你教给我的&lt;/p&gt;
+&lt;p&gt;くれたもの
+还有给我的东西&lt;/p&gt;
+&lt;p&gt;胸(むね)に刻(きざ)み過(す)ごしてる今日(きょう)も
+直到今天也紧刻在我的心中&lt;/p&gt;
+&lt;p&gt;だから伝(つた)えたいありがとう
+所以 我想对你说 谢谢你&lt;/p&gt;
+&lt;p&gt;ふたりの想(おも)い出(で)
+把两人之间的回忆&lt;/p&gt;
+&lt;p&gt;かき集(あつ)めたなら
+全部收集起来&lt;/p&gt;
+&lt;p&gt;また泣(な)けてきちゃう
+又一次快哭了出来&lt;/p&gt;
+&lt;p&gt;寂(さび)しさ溢(あふ)れて
+一切充满了寂寞&lt;/p&gt;
+&lt;p&gt;最後(さいご)の恋(こい)だと信(しん)じて願(ねが)った
+我希望我可以相信最后的爱情&lt;/p&gt;
+&lt;p&gt;あの日々(ひび)にウソはなかった
+那些日子不是捏造出来的&lt;/p&gt;
+&lt;p&gt;子供(こども)のままでいられたなら
+倘若我们曾经像孩子一样&lt;/p&gt;
+&lt;p&gt;何(なに)も怖(こわ)がらず歩(ある)いて行(い)けたかな
+就可以不畏惧地一同前行&lt;/p&gt;
+&lt;p&gt;もっと早(はや)く大人(おとな)になっていたなら
+倘若我们早已成为大人的话&lt;/p&gt;
+&lt;p&gt;二人(ふたり)で乗(の)り越(こ)えられたかな
+两人可以一起跨越这一步&lt;/p&gt;
+&lt;p&gt;今(いま)も君(きみ)の夢(ゆめ)夜空(よぞら)へ願(ねが)う
+现在也向天祈祷你的梦想可以实现&lt;/p&gt;
+&lt;p&gt;今(いま)でも君(きみ)は
+现在的你&lt;/p&gt;
+&lt;p&gt;あの頃(ころ)と同(おな)じ笑顔(えがお)で
+也在像那时一样笑&lt;/p&gt;
+&lt;p&gt;今(いま)でも君(きみ)は
+现在的你&lt;/p&gt;
+&lt;p&gt;あの頃(ころ)のようにまっすぐで
+也像那时一样径直走去&lt;/p&gt;
+&lt;p&gt;今(いま)でも君(きみ)は
+现在的你&lt;/p&gt;
+&lt;p&gt;あの頃(ころ)と変(か)わらない優(やさ)しさで
+也像那时一样有着不变的温柔&lt;/p&gt;
+&lt;p&gt;今(いま)でも君(きみ)は
+现在的你&lt;/p&gt;
+&lt;p&gt;君(きみ)のままでいてほしいそう願(ねが)うよ
+我只希望你保持这样就好&lt;/p&gt;
+&lt;p&gt;ふたりの想(おも)い出(で)
+把两人之间的回忆&lt;/p&gt;
+&lt;p&gt;かき集(あつ)めたなら
+全部收集起来&lt;/p&gt;
+&lt;p&gt;また泣(な)けてきちゃう
+又一次快哭了出来&lt;/p&gt;
+&lt;p&gt;寂(さび)しさ溢(あふ)れて
+一切充满了寂寞&lt;/p&gt;
+&lt;p&gt;最後(さいご)の恋(こい)だと信(しん)じて願(ねが)った
+我希望我可以相信最后的爱情&lt;/p&gt;
+&lt;p&gt;あの日々(ひび)にウソはなかった
+那些日子不是捏造出来的&lt;/p&gt;
+&lt;p&gt;ふたりの想(おも)い出(で)集(あつ)めたら
+收集两人之间的回忆&lt;/p&gt;
+&lt;p&gt;泣(な)き出(だ)しそうになる今夜(こんや)も
+今晚我就快哭出来&lt;/p&gt;
+&lt;p&gt;寂(さび)しさ溢(あふ)れて苦(くる)しくなる
+一切充满了寂寞和痛苦&lt;/p&gt;
+&lt;p&gt;最後(さいご)の恋(こい)と信(しん)じ願(ねが)った
+我希望我可以相信最后的爱情&lt;/p&gt;
+&lt;p&gt;あの日々(ひび)に嘘(うそ)はなかった
+那些日子不是捏造出来的&lt;/p&gt;
+&lt;p&gt;離(はな)れてもあなたの幸(しあわ)せ願(ねが)う
+即使我们天各一方 我也希望你能够幸福&lt;/p&gt;
+&lt;p&gt;ふたりの想(おも)い出(で)集(あつ)めたら
+收集两人之间的回忆&lt;/p&gt;
+&lt;p&gt;泣(な)き出(だ)しそうになる今夜(こんや)も
+今晚我就快哭出来&lt;/p&gt;
+&lt;p&gt;寂(さび)しさ溢(あふ)れて苦(くる)しくなる
+一切充满了寂寞和痛苦&lt;/p&gt;
+&lt;p&gt;最後(さいご)の恋(こい)と信(しん)じ願(ねが)った
+我希望我可以相信最后的爱情&lt;/p&gt;
+&lt;p&gt;あの日々(ひび)に嘘(うそ)はなかった
+那些日子不是捏造出来的&lt;/p&gt;
+&lt;p&gt;離(はな)れてもあなたの幸(しあわ)せ願(ねが)う
+即使我们天各一方 我也希望你能够幸福&lt;/p&gt;
+</content:encoded></item><item><title>若能绽放光芒</title><link>https://firefly.cuteleaf.cn/posts/post-125/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-125/</guid><pubDate>Sat, 20 Sep 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;雨上（あめあ）がりの虹（にじ）も
+雨过天晴的彩虹&lt;/p&gt;
+&lt;p&gt;凛（りん）と咲（さ）いた花（はな）も
+凛然绽放的花朵&lt;/p&gt;
+&lt;p&gt;色（いろ）づき溢（あふ）れ出（だ）す
+色彩随之满溢缤纷&lt;/p&gt;
+&lt;p&gt;茜色（あかねいろ）の空（そら） 仰（あお）ぐ君（きみ）に
+望着那个仰望绯红色天空的你&lt;/p&gt;
+&lt;p&gt;あの日（ひ） 恋（こい）に落（お）ちた
+就在那天 我坠入了爱河&lt;/p&gt;
+&lt;p&gt;瞬間（しゅんかん）のドラマチック
+戏剧化的那一瞬间&lt;/p&gt;
+&lt;p&gt;フィルムの中（なか）の1（ひと）コマも
+如荧幕中的特写镜头&lt;/p&gt;
+&lt;p&gt;消（き）えないよ 心（こころ）に刻（きざ）むから
+早已深深铭刻在我心中 永远不会消失&lt;/p&gt;
+&lt;p&gt;君（きみ）だよ 君（きみ）なんだよ 教（おし）えてくれた
+是你 是你 告诉我&lt;/p&gt;
+&lt;p&gt;暗闇（くらやみ）も光（ひか）るなら
+若能在黑暗中绽放光芒&lt;/p&gt;
+&lt;p&gt;星空（ほしぞら）になる
+便能化作星空&lt;/p&gt;
+&lt;p&gt;悲（かな）しみを笑顔（えがお）に
+悲伤化作笑颜&lt;/p&gt;
+&lt;p&gt;もう隠（かく）さないで
+已经无需隐藏&lt;/p&gt;
+&lt;p&gt;煌（きら）めくどんな星（ほし）も
+漫天闪耀着的星光&lt;/p&gt;
+&lt;p&gt;君（きみ）を照（て）らすから
+都会为你照亮前行&lt;/p&gt;
+&lt;p&gt;眠（ねむ）りも忘（わす）れて 迎（むか）えた朝日（あさひ）が
+一夜未眠迎来的朝阳&lt;/p&gt;
+&lt;p&gt;やたらと突（つ）き刺（さ）さる
+却愈加刺痛我心&lt;/p&gt;
+&lt;p&gt;低気圧（ていきあつ）運（はこ）ぶ 頭痛（ずつう）だって
+令人烦闷的头痛&lt;/p&gt;
+&lt;p&gt;忘（わす）れる 君（きみ）に会（あ）えば
+只要见到你 便能瞬间遗忘&lt;/p&gt;
+&lt;p&gt;静寂（せいじゃく）はロマンティック
+静寂编制你我的罗曼史&lt;/p&gt;
+&lt;p&gt;紅茶（こうちゃ）に溶（と）けたシュガーのように
+如红茶里融化的砂糖&lt;/p&gt;
+&lt;p&gt;全身（ぜんしん）に巡（めぐ）るよ 君（きみ）の声（こえ）
+你的声音萦绕全身&lt;/p&gt;
+&lt;p&gt;君（きみ）だよ 君（きみ）なんだよ
+是你 是你&lt;/p&gt;
+&lt;p&gt;笑顔（えがお）をくれた
+带给我笑容&lt;/p&gt;
+&lt;p&gt;涙（なみだ）も光（ひか）るなら
+泪滴若能绽放光芒&lt;/p&gt;
+&lt;p&gt;流星（りゅうせい）になる
+便能化作流星&lt;/p&gt;
+&lt;p&gt;傷（きず）付（つ）いたその手（て）を
+这伤痕累累的双手&lt;/p&gt;
+&lt;p&gt;もう離（はな）さないで
+请别再松开&lt;/p&gt;
+&lt;p&gt;願（ねが）いを込（こ）めた空（そら）に
+寄托心愿的天空&lt;/p&gt;
+&lt;p&gt;明日（あした）が来（く）るから
+明天一定会来到&lt;/p&gt;
+&lt;p&gt;導（みちび）いてくれた 光（ひかり）は 君（きみ）だよ
+指引着我前进的光芒 就是你啊&lt;/p&gt;
+&lt;p&gt;つられて僕（ぼく）も 走（はし）り出（だ）した
+我也不禁迈步奔向前方&lt;/p&gt;
+&lt;p&gt;知（し）らぬ間（ま）に クロスし始（はじ）めた
+不知不觉间 我们交织在一起&lt;/p&gt;
+&lt;p&gt;ほら 今（いま）だ ここで 光（ひか）るなら
+看 就是现在 若此处有光芒&lt;/p&gt;
+&lt;p&gt;君（きみ）だよ 君（きみ）なんだよ 教（おし）えてくれた
+是你 是你 告诉我&lt;/p&gt;
+&lt;p&gt;暗闇（くらやみ）は終（お）わるから
+黑暗终究会过去&lt;/p&gt;
+&lt;p&gt;君（きみ）だよ 君（きみ）なんだよ 教（おし）えてくれた
+是你 是你 告诉我&lt;/p&gt;
+&lt;p&gt;暗闇（くらやみ）も光（ひか）るなら
+若能在黑暗中绽放光芒&lt;/p&gt;
+&lt;p&gt;星空（ほしぞら）になる
+便能化作星空&lt;/p&gt;
+&lt;p&gt;悲（かな）しみを笑顔（えがお）に
+悲伤化作笑颜&lt;/p&gt;
+&lt;p&gt;もう隠（かく）さないで
+已经无需隐藏&lt;/p&gt;
+&lt;p&gt;煌（きら）めくどんな星（ほし）も
+漫天闪耀着的星光&lt;/p&gt;
+&lt;p&gt;君（きみ）を照（て）らすから
+都会为你照亮前行&lt;/p&gt;
+&lt;p&gt;答（こた）えはいつでも偶然（ぐうぜん）？必然（ひつぜん）？
+答案是 偶然？必然？&lt;/p&gt;
+&lt;p&gt;いつか選（えら）んだ道（みち）こそ
+你曾经选择的路&lt;/p&gt;
+&lt;p&gt;運命（うんめい）になる
+才是真正的命运&lt;/p&gt;
+&lt;p&gt;握（にぎ）りしめた その希望（きぼう）も不安（ふあん）も
+紧握在手心的希望也好 不安也罢&lt;/p&gt;
+&lt;p&gt;きっと2人（ふたり）を動（うご）かす 光（ひかり）になるから
+必定会化作驱使我们前进的光芒&lt;/p&gt;
+</content:encoded></item><item><title>Lemon</title><link>https://firefly.cuteleaf.cn/posts/post-127/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-127/</guid><pubDate>Sat, 20 Sep 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;梦（ゆめ）ならば どれほど よかったでしょう
+如果这一切都是梦境该有多好&lt;/p&gt;
+&lt;p&gt;未（いま）だ にあなた のことを 梦（ゆめ）にみる
+至今仍能与你在梦中相遇&lt;/p&gt;
+&lt;p&gt;忘（わす）れた物（もの）を取（と）りに 帰（かえ）る ように
+如同取回遗忘之物一般&lt;/p&gt;
+&lt;p&gt;古（ふる）びた思（おも）い出（で）の埃（ほこり） を払（はら）う
+细细拂去将回忆覆盖的尘埃&lt;/p&gt;
+&lt;p&gt;戻（もど）らない 幸（しあわ）せ があることを
+这世间亦有无法挽回的幸福&lt;/p&gt;
+&lt;p&gt;最後（さいご） にあなた が教（おし）え てくれた
+最终是你让我懂得这一点&lt;/p&gt;
+&lt;p&gt;言（い）えずに隠（かく）してた 昏（くら）い過去（かこ）も
+那些未对他人提及过的黑暗往事&lt;/p&gt;
+&lt;p&gt;あなた がいなきゃ 永远（えいえん）に 昏（くら）いまま
+如果不曾有你的话 它们将永远沉睡在黑暗中&lt;/p&gt;
+&lt;p&gt;きっともうこれ以上（いじょう） 傷（きず）つくことなど
+比这更令人难过的事情&lt;/p&gt;
+&lt;p&gt;ありはしないとわかっている
+我知道不可能存在&lt;/p&gt;
+&lt;p&gt;あの日（ひ）の悲（かな）しみさえ
+那日的悲伤&lt;/p&gt;
+&lt;p&gt;あの日（ひ）の苦（くる）しみさえ
+与那日的痛苦&lt;/p&gt;
+&lt;p&gt;そのすべてを 爱（あい）してたあなたとともに
+连同深爱着这一切的你&lt;/p&gt;
+&lt;p&gt;胸（むね）に残（のこ）り離（はな）れない
+化作了深深烙印在我心中的&lt;/p&gt;
+&lt;p&gt;苦（にが）いレモン の匂（にお）い
+苦涩柠檬的香气&lt;/p&gt;
+&lt;p&gt;雨（あめ）が降（ふ）り止（や）むまでは 帰（かえ）れない
+在雨过天晴前都无法归去&lt;/p&gt;
+&lt;p&gt;今（いま）でもあなたはわたしの光（ひかり）
+时至今日 你仍是我的光芒&lt;/p&gt;
+&lt;p&gt;暗闇（くらやみ）で あなたの背（せ）をなぞった
+在黑暗中追寻着你的身影&lt;/p&gt;
+&lt;p&gt;その輪郭（りんかく）を鮮明（せんめい）に 覚（おぼ）えている
+那轮廓至今仍鲜明地刻印于心&lt;/p&gt;
+&lt;p&gt;受（う）け止（と）めきれないもの と出会（であ）うたび
+每当遇到无法承受的苦痛时&lt;/p&gt;
+&lt;p&gt;溢（あふ）れてやまないのは 涙（なみだ）だけ
+总不禁泪如泉涌&lt;/p&gt;
+&lt;p&gt;何（なに）をしていたの
+你都经历过什么&lt;/p&gt;
+&lt;p&gt;何（なに）を見（み）ていたの
+又目睹过什么呢&lt;/p&gt;
+&lt;p&gt;わたしの知（し）らない横顔（よこがお）で
+脸上浮现着我不曾见过的神情&lt;/p&gt;
+&lt;p&gt;どこかであなたが今（いま）
+如果你正在什么地方&lt;/p&gt;
+&lt;p&gt;わたしと同（おな）じ様（よう）な
+与我一样&lt;/p&gt;
+&lt;p&gt;涙（なみだ）にくれ 淋（さび）しさの 中（なか）にいるなら
+终日过着以泪洗面的寂寞生活的话&lt;/p&gt;
+&lt;p&gt;わたしのことなどどう か 忘（わす）れてください
+就请你将我的一切全部遗忘吧&lt;/p&gt;
+&lt;p&gt;そんなことを心（こころ）から 願（ねが）うほどに
+这是我发自内深处唯一的祈愿&lt;/p&gt;
+&lt;p&gt;今（いま）でもあなたはわたしの光（ひかり）
+时至今日 你仍是我的光芒&lt;/p&gt;
+&lt;p&gt;自分（じぶん）が思（おも）うより
+超出了我自己的想象&lt;/p&gt;
+&lt;p&gt;恋（こい）をしていたあなたに
+我深深地恋慕着你&lt;/p&gt;
+&lt;p&gt;あれから思（おも）うように 息（いき）ができない
+自此每当想起你 都如同窒息般痛苦&lt;/p&gt;
+&lt;p&gt;あんなに 侧（そば）にいたのに まるで嘘（うそ）みたい
+你曾亲密伴我身旁 如今却如烟云般消散&lt;/p&gt;
+&lt;p&gt;とても忘（わす）れられない
+我永远都不会将你遗忘&lt;/p&gt;
+&lt;p&gt;それだけが確（たし）か
+这是唯一能确定的&lt;/p&gt;
+&lt;p&gt;あの日（ひ）の悲（かな）しみさえ
+那日的悲伤&lt;/p&gt;
+&lt;p&gt;あの日（ひ）の苦（くる）しみさえ
+与那日的痛苦&lt;/p&gt;
+&lt;p&gt;そのすべてを 爱（あい）してたあなたとともに
+连同深爱着这一切的你&lt;/p&gt;
+&lt;p&gt;胸（むね）に残（のこ）り離（はな）れない
+化作了深深烙印在我心中的&lt;/p&gt;
+&lt;p&gt;苦（にが）いレモン の匂（にお）い
+苦涩柠檬的香气&lt;/p&gt;
+&lt;p&gt;雨（あめ）が降（ふ）り止（や）むまでは 帰（かえ）れない
+在雨过天晴前都无法归去&lt;/p&gt;
+&lt;p&gt;切（き）り分（わ）けた果実（かじつ）の片方（かたほう） の様（よう）に
+如同被切开的半个柠檬一般&lt;/p&gt;
+&lt;p&gt;今（いま）でもあなたはわたしの光（ひかり）
+时至今日 你仍是我的光芒&lt;/p&gt;
+</content:encoded></item><item><title>docker 一键安装</title><link>https://firefly.cuteleaf.cn/posts/post-124/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-124/</guid><pubDate>Mon, 11 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;bash &amp;lt;(wget -qO- https://get.docker.com) &amp;amp;&amp;amp; apt install docker-compose&lt;/p&gt;
+</content:encoded></item><item><title>google服务器一键root用户</title><link>https://firefly.cuteleaf.cn/posts/post-123/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-123/</guid><pubDate>Wed, 06 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;进入root模式&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo -i
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;一键脚本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget -q root.sh https://raw.githubusercontent.com/passeway/root/main/root.sh &amp;amp;&amp;amp; chmod +x root.sh &amp;amp;&amp;amp; ./root.sh
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>xb修改出口</title><link>https://firefly.cuteleaf.cn/posts/post-122/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-122/</guid><pubDate>Mon, 14 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;custom_outbound.json
+[
+{
+&quot;protocol&quot;: &quot;vless&quot;,
+&quot;settings&quot;: {
+&quot;vnext&quot;: [
+{
+&quot;address&quot;: &quot;n-lock-dc1.autoccb.de&quot;,
+&quot;port&quot;: 2361,
+&quot;users&quot;: [
+{
+&quot;id&quot;: &quot;7da01a0e-273d-4d9f-b656-955fdc0bbbb9&quot;,
+&quot;flow&quot;: &quot;xtls-rprx-vision&quot;,
+&quot;encryption&quot;: &quot;none&quot;
+}
+]
+}
+]
+},
+&quot;streamSettings&quot;: {
+&quot;network&quot;: &quot;tcp&quot;,
+&quot;security&quot;: &quot;reality&quot;,
+&quot;realitySettings&quot;: {
+&quot;show&quot;: false,
+&quot;fingerprint&quot;: &quot;qq&quot;,
+&quot;serverName&quot;: &quot;vuejs.org&quot;,
+&quot;publicKey&quot;: &quot;w5BB9HXnOs2PfVEkuCfx8onQB_xOuDp5V87czPV613s&quot;,
+&quot;shortId&quot;: &quot;dc2d07ee&quot;,
+&quot;spiderX&quot;: &quot;/&quot;
+}
+},
+&quot;tag&quot;: &quot;us1&quot;
+},
+{
+&quot;protocol&quot;: &quot;vless&quot;,
+&quot;settings&quot;: {
+&quot;vnext&quot;: [
+{
+&quot;address&quot;: &quot;n-uk9929.autoccb.de&quot;,
+&quot;port&quot;: 7125,
+&quot;users&quot;: [
+{
+&quot;id&quot;: &quot;7da01a0e-273d-4d9f-b656-955fdc0bbbb9&quot;,
+&quot;flow&quot;: &quot;xtls-rprx-vision&quot;,
+&quot;encryption&quot;: &quot;none&quot;
+}
+]
+}
+]
+},
+&quot;streamSettings&quot;: {
+&quot;network&quot;: &quot;tcp&quot;,
+&quot;security&quot;: &quot;reality&quot;,
+&quot;realitySettings&quot;: {
+&quot;show&quot;: false,
+&quot;fingerprint&quot;: &quot;safari&quot;,
+&quot;serverName&quot;: &quot;www.amazon.com&quot;,
+&quot;publicKey&quot;: &quot;qU0PQ6zTtLw-Cf19X1-XTcSgGo9h3Rm7WTCsuxkFSDM&quot;,
+&quot;shortId&quot;: &quot;97d0d464&quot;,
+&quot;spiderX&quot;: &quot;/&quot;
+}
+},
+&quot;tag&quot;: &quot;uk1&quot;
+},&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    {
+      \&quot;protocol\&quot;: \&quot;freedom\&quot;,
+      \&quot;settings\&quot;: {},
+      \&quot;tag\&quot;: \&quot;direct\&quot;
+    },
+    {
+      \&quot;protocol\&quot;: \&quot;blackhole\&quot;,
+      \&quot;settings\&quot;: {},
+      \&quot;tag\&quot;: \&quot;block\&quot;
+    }
+  ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;route.json&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  \&quot;domainStrategy\&quot;: \&quot;IPOnDemand\&quot;,
+  \&quot;rules\&quot;: [
+    {
+      \&quot;type\&quot;: \&quot;field\&quot;,
+      \&quot;inboundTag\&quot;: [
+        \&quot;Vless_0.0.0.0_30001\&quot;
+      ],
+      \&quot;outboundTag\&quot;: \&quot;us1\&quot;
+    },
+       {
+      \&quot;type\&quot;: \&quot;field\&quot;,
+      \&quot;inboundTag\&quot;: [
+        \&quot;Vless_0.0.0.0_30002\&quot;
+      ],
+      \&quot;outboundTag\&quot;: \&quot;uk1\&quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;解开RouteConfigPath和OutboundConfigPath&lt;/p&gt;
+</content:encoded></item><item><title>VPS一键脚本</title><link>https://firefly.cuteleaf.cn/posts/post-118/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-118/</guid><pubDate>Mon, 12 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;更新系统&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt update &amp;amp;&amp;amp; apt upgrade -y
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;融合怪测试&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh &amp;amp;&amp;amp; chmod +x ecs.sh &amp;amp;&amp;amp; bash ecs.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ip质量测试&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl -Ls IP.Check.Place)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl -sL https://run.NodeQuality.com)   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;网络质量测试&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl -Ls Net.Check.Place) -4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;hy2&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget -N --no-check-certificate https://raw.githubusercontent.com/flame1ce/hysteria2-install/main/hysteria2-install-main/hy2/hysteria.sh &amp;amp;&amp;amp; bash hysteria.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;3x-ui&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash &amp;lt;(curl -Ls https://raw.githubusercontent.com/xeefei/3x-ui/master/install.sh)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;启用BBR拥塞控制算法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 启用 BBR 拥塞控制算法
+sysctl -w net.ipv4.tcp_congestion_control=bbr
+
+# 使配置永久生效（修改 sysctl 配置文件）
+echo \&quot;net.ipv4.tcp_congestion_control = bbr\&quot; &amp;gt;&amp;gt; /etc/sysctl.conf
+sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;启用fq队列管理算法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 启用 FQ_Codel
+sysctl -w net.core.default_qdisc=fq_codel
+
+# 使配置永久生效（修改 sysctl 配置文件）
+echo \&quot;net.core.default_qdisc = fq_codel\&quot; &amp;gt;&amp;gt; /etc/sysctl.conf
+sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;pre&gt;&lt;code&gt;# 检查 TCP 拥塞控制算法
+sysctl net.ipv4.tcp_congestion_control    #成功应该返回“net.ipv4.tcp_congestion_control = bbr”#
+# 检查默认队列调度器
+sysctl net.core.default_qdisc    #成功应该返回“net.core.default_qdisc = fq_codel”#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;233boy一键脚本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash &amp;lt;(wget -qO- -o- https://github.com/233boy/sing-box/raw/main/install.sh)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;xboard后端对接&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget -N https://raw.githubusercontent.com/wyx2685/V2bX-script/master/install.sh &amp;amp;&amp;amp; bash install.sh
+
+wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh &amp;amp;&amp;amp; bash install.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;xrayr相关命令&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;XrayR restart
+XrayR log
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>NPM更新版本号</title><link>https://firefly.cuteleaf.cn/posts/post-113/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-113/</guid><pubDate>Sat, 12 Apr 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;要使用npm命令更新package.json中的版本号，可以使用npm version命令。以下是几种常见的版本更新方式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;更新补丁版本号（1.0.3 → 1.0.4）:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;npm version patch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;更新次版本号（1.0.3 → 1.1.0）:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;npm version minor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;更新主版本号（1.0.3 → 2.0.0）:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;npm version major
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;更新到特定版本号:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;npm version 1.2.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;如果您想添加提交信息:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;npm version patch -m \&quot;版本升级到 %s\&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这些命令会自动更新package.json中的版本号，同时如果项目使用Git管理，还会创建相应的Git标签。执行命令后，版本号会立即更新。&lt;/p&gt;
+</content:encoded></item><item><title>版权年份及版本号自动更新</title><link>https://firefly.cuteleaf.cn/posts/post-110/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-110/</guid><pubDate>Tue, 31 Dec 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;版权年份&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;span&amp;gt;&amp;amp;copy; {{ copyrightYears }} All rights reserved. &amp;lt;/span&amp;gt;
+
+&amp;lt;script setup&amp;gt;
+import { computed } from \&apos;vue\&apos;
+
+const START_YEAR = 2024
+const currentYear = new Date().getFullYear()
+
+const copyrightYears = computed(() =&amp;gt; {
+  return currentYear &amp;gt; START_YEAR 
+    ? `${START_YEAR}-${currentYear}`
+    : START_YEAR
+})
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;版本号&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;span&amp;gt; &amp;amp;nbsp; {{ RELEASE }}&amp;lt;/span&amp;gt;
+
+import * as pkg from \&apos;../../package.json\&apos;
+
+const RELEASE = `v${pkg.version}`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;使用 npm version 命令自动更新版本号&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例如：
+npm version patch 更新补丁版本 (1.0.0 -&amp;gt; 1.0.1)
+npm version minor 更新次版本 (1.0.0 -&amp;gt; 1.1.0)
+npm version major 更新主版本 (1.0.0 -&amp;gt; 2.0.0)&lt;/p&gt;
+</content:encoded></item><item><title>Frp内网穿透Web服务</title><link>https://firefly.cuteleaf.cn/posts/post-107/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-107/</guid><pubDate>Wed, 18 Dec 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;配套工具：&lt;/strong&gt;
+公网IPv4的Linux（带宽不是很重要）
+Linux安全组及宝塔面板开放端口
+&lt;strong&gt;具体步骤&lt;/strong&gt;
+Linux装&lt;a href=&quot;https://github.com/fatedier/frp/releases/tag/v0.61.1&quot;&gt;frps&lt;/a&gt;，Win装&lt;a href=&quot;https://github.com/fatedier/frp/releases/tag/v0.61.1&quot;&gt;frpc&lt;/a&gt;，下载对应操作系统的文件，Linux保留frps和frps.toml文件，Win保留frpc.exe和frpc.toml文件（多余文件可删除）&lt;/p&gt;
+&lt;p&gt;修改frps.toml文件，vhostHTTPPort 为浏览器访问端口&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bindPort = 7000
+vhostHTTPPort = 8080
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;控制 frps 服务端的启动、停止、配置后台运行以及开机自启动。
+1、安装 systemd
+# 使用 yum 安装 systemd（CentOS/RHEL）
+yum install systemd&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 使用 apt 安装 systemd（Debian/Ubuntu）
+apt install systemd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;2、创建 frps.service 文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo vim /etc/systemd/system/frps.service
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;写入内容ExecStart 需要修改成你的路径比如 /www/wwwroot/frps/frps -c /www/wwwroot/frps/frps.toml&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+# 服务名称，可自定义
+Description = frp server
+After = network.target syslog.target
+Wants = network.target
+
+[Service]
+Type = simple
+# 启动frps的命令，需修改为您的frps的安装路径
+ExecStart = /path/to/frps -c /path/to/frps.toml
+
+[Install]
+WantedBy = multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;3、使用 systemd 命令管理 frps 服务&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# 启动frp
+sudo systemctl start frps
+# 停止frp
+sudo systemctl stop frps
+# 重启frp
+sudo systemctl restart frps
+# 查看frp状态
+sudo systemctl status frps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;4、设置 frps 开机自启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl enable frps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;启动frps&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl start frps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修改frpc.toml文件，serverAddr 为Linux公网IP，localPort 为本地跑的服务端口，customDomains 为绑定的域名，测试了几次不使用域名的话有问题&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;serverAddr = \&quot;x.x.x.x\&quot;
+serverPort = 7000
+
+[[proxies]]
+name = \&quot;web\&quot;
+type = \&quot;http\&quot;
+localPort = 3000
+customDomains = [\&quot;xx.xx.xx\&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;启动frpc&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;frpc -c frpc.toml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;客户端快捷方式&lt;/strong&gt;
+下载地址https://cloudreve.heiyu.fun/f/3yu6/heiyu.exe
+&lt;img src=&quot;https://blog.heiyu.fun/usr/uploads/2024/12/3156401418.png&quot; alt=&quot;2024-12-19T02:20:24.png&quot; /&gt;
+接下来就可以通过域名+vhostHTTPPort 访问
+官方文档：https://gofrp.org/zh-cn/docs/&lt;/p&gt;
+</content:encoded></item><item><title>极致远程桌面的几种方法</title><link>https://firefly.cuteleaf.cn/posts/post-100/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-100/</guid><pubDate>Fri, 20 Sep 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;前提：受控端和主控端网络质量良好且稳定
+须知：以下所有方法均在Window及Android端实现，macOs下未测试，步骤细节待补充！！！&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一、GameViewer&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;不想折腾的，直接无脑入，网易的远程桌面，可调画面质量，需注册登录，什么时候收费未知&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二、双端IPv6环境下（对于网络要求较高）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;sunshine（受控端）+ moonlight（主控端）
+由于运营商给受控端分配的ipv6会发生变化，需要用到&lt;a href=&quot;https://github.com/jeessy2/ddns-go&quot;&gt;ddns-go&lt;/a&gt;域名动态解析到变化的ipv6&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;三、IPv4环境下（目前国内长时间存在的状态）&lt;/strong&gt;
+sunshine + 皎月连/ZeroTier（内网穿透）+ moonlight&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;四、Frp、Parsec、ZeroTier搭建Moon中转服务器（可选）&lt;/strong&gt;
+frp需要大带宽云服务器，parsec被国内墙，可能连不通，moon上手太高&lt;/p&gt;
+&lt;p&gt;GameViewer：https://gv.163.com/
+皎月连：https://www.natpierce.cn/
+ZeroTier：https://www.zerotier.com/
+sunshine：https://github.com/LizardByte/Sunshine/releases/tag/v0.23.1
+moonlight：https://github.com/moonlight-stream&lt;/p&gt;
+</content:encoded></item><item><title>Nvm切换Node.js版本</title><link>https://firefly.cuteleaf.cn/posts/post-82/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-82/</guid><pubDate>Sat, 27 Jul 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;nvm（Node Version Manager）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Node.js支持多版本共存，可以在同一台电脑上轻松管理和切换多个Node.js版本。
+nvm下载地址：https://github.com/coreybutler/nvm-windows/&lt;/p&gt;
+&lt;p&gt;安装的时候会选择nvm安装目录和node安装目录，两个目录都需要为空目录
+安装完成后打开nvm安装目录修改setting.txt的内容
+&lt;img src=&quot;https://blog.heiyu.fun/usr/uploads/2024/09/1943800881.png&quot; alt=&quot;2024-09-09T12:25:17.png&quot; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;node_mirror: https://npmmirror.com/mirrors/node/
+npm_mirror: https://npmmirror.com/mirrors/npm/
+
+
+// 查看可安装的Node.js版本
+nvm list available           
+// 安装16.14.0版本的Node.js
+nvm install 16.14.0         
+// 切换使用指定版本的Node.js
+nvm use 16.14.0          
+// 查看已安装的Node.js版本
+nvm list  
+//卸载已安装Node.js版本
+nvm uninstall 16.14.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;常见问题
+显示已经切换成功，但实际没有，主要原因是在装nvm之前已经存在node版本了，nvm包里面的版本和已经存在的文件没有关联，找到之前安装的node,删掉文件
+nvm use 突然失效，建议卸载nvm重新安装&lt;/p&gt;
+</content:encoded></item><item><title>Npm镜像源操作</title><link>https://firefly.cuteleaf.cn/posts/post-55/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-55/</guid><pubDate>Mon, 04 Mar 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;打开PowerShell&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查看当前使用的镜像地址命令&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm config get registry
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;设置为淘宝镜像源&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm config set registry https://registry.npmmirror.com/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;还原默认镜像&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;//方法一
+npm config delete registry
+//方法二
+npm config set registry https://registry.npmjs.org
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>浏览器禁止右键、F12键复制及打开控制台</title><link>https://firefly.cuteleaf.cn/posts/post-37/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-37/</guid><pubDate>Sun, 31 Dec 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;一、主流浏览器禁止右键（火狐浏览器除外）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;script language=\&quot;Javascript\&quot;&amp;gt;
+    document.oncontextmenu=new Function(\&quot;event.returnValue=false\&quot;);
+    document.onselectstart=new Function(\&quot;event.returnValue=false\&quot;);
+  &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;二、火狐浏览器禁止右键&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;script type=\&quot;text/javascript\&quot;&amp;gt;
+    document.oncontextmenu=function(e){return false;}
+  &amp;lt;/script&amp;gt;
+
+  &amp;lt;style&amp;gt;
+    body {-moz-user-select:none;} //禁止文字选中
+  &amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;三、禁用F12键&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;script type=\&quot;text/javascript\&quot;&amp;gt;
+        document.onkeydown = function () {
+            if (window.event &amp;amp;&amp;amp; window.event.keyCode == 123) {
+                event.keyCode = 0;
+                event.returnValue = false;
+                return false;
+            }
+        };
+  &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>Win10/11从家庭版升级为专业版</title><link>https://firefly.cuteleaf.cn/posts/post-22/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-22/</guid><pubDate>Sat, 25 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;前言&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;之前使用电脑自带的虚拟机，发现家庭版并无自带，就在网上下载了专业版的Hyper-V驱动使用虚拟机，最近用frp搭建远程桌面，发现也没有，只能升级为专业版，如果再重装系统的，那就太麻烦了，只能选择更换产品密钥（该教程仅供学习交流，严禁用于商业用途）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实现&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;找到网上分享的激活密钥或者去某宝购买一个密钥，然后把网断了，在电脑设置中 系统&amp;gt;激活&amp;gt;更换产品密钥 等待系统更新结束&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;#可能遇到的问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;已经显示为专业版了，但是电脑却显示为未激活状态，接下来使用 &lt;a href=&quot;https://wwqy.lanzouy.com/im8iP1fvcheb&quot;&gt;数字激活工具MAS&lt;/a&gt;（全称：Microsoft Activation Scripts）激活
+解压得到文件夹中依次进入以下文件夹【MAS】-&amp;gt;【All-In-One-Version】，然后会看到一个名为【MAS_AIO.cmd】的文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.heiyu.fun/usr/uploads/2023/11/908375270.png&quot; alt=&quot;MAS.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;右键该文件，以管理员身份运行，即可进入到工具的主界面，工具以命令行界面运行，需要使用键盘输入选项前对应的数字来告诉工具执行何种操作。常用功能为前2个，如下图所示&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.heiyu.fun/usr/uploads/2023/11/3781249998.png&quot; alt=&quot;MAS-m.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;二个选项对应的功能分别为：&lt;/p&gt;
+&lt;p&gt;1、数字权利激活（永久激活）&lt;/p&gt;
+&lt;p&gt;2、KMS38激活（激活至2038年）&lt;/p&gt;
+&lt;p&gt;按照提示输入数字进行激活，永久激活的我这边是没有成功，成功的是到2038年，直接从永久变到2038年，但也无所谓，就算你是顶配的电脑，能坚持用15年吗 ::twemoji:sweat::&lt;/p&gt;
+</content:encoded></item><item><title>Vim编辑器简单使用</title><link>https://firefly.cuteleaf.cn/posts/post-23/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-23/</guid><pubDate>Sat, 25 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;前言&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;作为业余计算机选手，一直用的是记事本改后缀，用过vim后发现也挺好用的&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;vim编辑器的三种模式&lt;/p&gt;
+&lt;p&gt;命令模式：不能对文件直接编辑，只能通过快捷键进行一些操作(如移动光标、复制、粘贴等)，打开vim后默认进入命令模式；&lt;/p&gt;
+&lt;p&gt;末行模式：可在末行输入一些命令对文件进行操作(如搜索、替换、保存、退出、高亮等)；&lt;/p&gt;
+&lt;h2&gt;编辑模式：可对文件内容进行编辑；
+&amp;lt;p style=&quot;color:red&quot;&amp;gt;使用ESC键退出编辑模式&amp;lt;/p&amp;gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#进入文件
+vim + 文件名
+#进入编辑模式
+a
+#保存并退出
+:wq
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+</content:encoded></item><item><title>Frp实现远程桌面连接</title><link>https://firefly.cuteleaf.cn/posts/post-24/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-24/</guid><pubDate>Sat, 25 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;frp 是一个可用于内网穿透的高性能的反向代理应用，分为服务端frps和客户端frpc，支持 tcp, udp, http, https 协议。详情可浏览该项目的&lt;a href=&quot;https://github.com/fatedier/frp/&quot;&gt;Github主页&lt;/a&gt;&lt;a href=&quot;https://blog.leesong.top/index.php/archives/143/&quot;&gt;一面名心镜&lt;/a&gt;大佬说frp内网穿透这个很好用，让我试试，跟着他的教程弄，排查了好久的问题，还是有点出入，所以还是记录一下吧&lt;/p&gt;
+&lt;h2&gt;工作原理&lt;/h2&gt;
+&lt;p&gt;1.服务端运行，监听一个主端口，等待客户端的连接；
+2.客户端连接到服务端的主端口，同时告诉服务端要监听的端口和转发类型；
+3.服务端fork新的进程监听客户端指定的端口；
+4.外网用户连接到客户端指定的端口，服务端通过和客户端的连接将数据转发到客户端；
+5.客户端进程再将数据转发到本地服务，从而实现内网对外暴露服务的能力。&lt;/p&gt;
+&lt;h2&gt;必备条件&lt;/h2&gt;
+&lt;p&gt;一台拥有公网IP的Linux服务器，一台win10/11专业版客户端（家庭版转专业版可以看之前的文章），服务器的安全组7000/7500打开（如果使用到宝塔面板，把防火墙7000/7500也打开），安装所需的&lt;a href=&quot;https://github.com/fatedier/frp/releases&quot;&gt;frp文件&lt;/a&gt;，Window和Linux都按装最新的即可，写文章的时候最新版本为0.52.3，使用的是Ubuntu 22.04 Win11&lt;/p&gt;
+&lt;h2&gt;服务器配置（frp-service）&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;一、将Linux解压的frp文件夹中保留frps.exe和frps.toml（LICENSE文件无所谓）上传到Linux目录&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我的是在 /www/wwwroot/frps 进入到frps目录下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd /www/wwwroot/frps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再打开frps.toml&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  sudo vim frps.toml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并修改frps.toml为&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;webServer.addr = \&quot;0.0.0.0\&quot;  #本网络中的本机
+bindPort = 7000  #frp服务器监听的端口号，用于与客户端建立连接。
+vhostHTTPPort = 7002  #虚拟主机HTTP访问的端口号，用于通过HTTP协议访问frp服务器上的虚拟主机
+webServer.port = 7500  #frp仪表盘（Dashboard）的端口号，用于通过Web界面管理和监控frp服务器。
+webServer.user = \&quot;admin\&quot;  #frp仪表盘的用户名，用于登录仪表盘进行管理操作。
+webServer.password = \&quot;admin\&quot;  #frp仪表盘的密码，用于与用户名一起进行身份验证。
+auth.method = \&quot;token\&quot;  #用于认证的方法，可以设置为 \&quot;token\&quot;，表示使用令牌进行认证。
+auth.token = \&quot;918822\&quot;  #用于认证的令牌，客户端需要提供正确的令牌才能与服务器建立连接。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;配置完毕后保存退出&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二、启动frps&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; ./frps -c frps.toml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;提示成功后，能通过 你的IP：7500的frp面板表示frps配置无误&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;三、使用 systemd 管理 frps 服务&lt;/strong&gt;
+安装 systemd&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt install systemd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;创建 frps.service 文件，使用vim在 /etc/systemd/system 目录下创建一个 frps.service 文件，用于配置 frps 服务。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/systemd/system/frps.service
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并在 frps.service 中写入&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=Frp Server Service
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5s
+ExecStart = /www/wwwroot/frps/frps -c /www/wwwroot/frps/frps.toml #注意路径，这里是我的路径
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;启动frps&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl start frps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;设置 frps开机自启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo systemctl enable frps
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Windows配置（frp-client）&lt;/h2&gt;
+&lt;p&gt;Window解压的frp文件夹中保留frpc.exe和frpc.toml（LICENSE文件无所谓）放在一个不容易被删的地方（路径不得含中文）
+使用记事本打开frpc.toml并写入&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;serverAddr = \&quot;你的公网IP\&quot;
+serverPort = 7000  #与bindPort保持一致
+log.to = \&quot;./frpc.log\&quot;  #日志路径
+log.level = \&quot;info\&quot;   #日志等级
+log.maxDays = 3  #日志保存天数
+auth.method = \&quot;token\&quot;  #和上文一样
+auth.token = \&quot;918822\&quot;
+[[proxies]]
+name = \&quot;control\&quot;
+type = \&quot;tcp\&quot;
+localIP = \&quot;127.0.0.1\&quot; 
+localPort = 3389  #本地的远程连接映射端口
+remotePort = 7002  #与之前的vhostHTTPPort保持一致
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用CMD命令启动：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;frpc -c frpc.toml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不要关闭窗口，打开frpc.log，看是否显示为 [control] start proxy success&lt;/p&gt;
+&lt;p&gt;在第三个设备上的 Microsoft远程桌面 应用上加入电脑 你的IP:7002 即可访问&lt;/p&gt;
+&lt;h2&gt;可能遇到的问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;frpc.log中显示start error: port unavailable
+那么你需要更改remotePort和vhostHTTPPort并保持端口一致&lt;/li&gt;
+&lt;li&gt;token in login doesn&apos;t match token from configuration&lt;br /&gt;
+你可以跳转到&lt;a href=&quot;https://blog.leesong.top/index.php/archives/143/&quot;&gt;一面明心镜&lt;/a&gt;，查看该错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;参考资料&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.leesong.top/index.php/archives/143/&quot;&gt;一面明心镜&lt;/a&gt;
+&lt;a href=&quot;https://github.com/fatedier/frp/blob/dev/conf/frps_full_example.toml&quot;&gt;frps_full_example.toml文档&lt;/a&gt;&lt;/p&gt;
+</content:encoded></item><item><title>运筹学实验报告</title><link>https://firefly.cuteleaf.cn/posts/post-15/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-15/</guid><pubDate>Wed, 22 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;1、	实验目的和任务&lt;br /&gt;
+1.1. 进一步掌握Lingo编程操作；
+1.2通过实验进一步掌握运筹学运输问题的建模以及求解过程，提高学生分析问题和解决问题能力。
+2、	实验仪器、设备及材料
+计算机、Lingo
+3、	实验内容
+运输问题
+3个产地4个销地的运输问题&lt;/p&gt;
+&lt;p&gt;产量&lt;/p&gt;
+&lt;p&gt;6	2	6	7	30&lt;/p&gt;
+&lt;p&gt;4	9	5	3	25&lt;/p&gt;
+&lt;p&gt;8	8	1	5	21
+销量	15	17	22	12&lt;/p&gt;
+&lt;p&gt;建模
+决策变量：决策变量就是产地 到销地 的运量
+目标函数：
+，
+约束条件：第i个产地的运出量应小于或等于该地的生产量，即&lt;/p&gt;
+&lt;p&gt;第j个销地的运入量应等于该地的需求量，即&lt;/p&gt;
+&lt;p&gt;求解过程
+编写模型程序：
+model:
+! 3 Warehouse,4 Customer Transportation Problem;
+sets:
+Warehouse/1..3/:a;
+Customer/1..4/:b;
+Routes(warehouse,customer):c,x;
+endsets
+!here are the parameters;
+data:
+a=30,25,21;
+b=15,17,22,12;
+c=6,2,6,7,
+4,9,5,3,
+8,8,1,5;
+enddata
+! The objective;
+[obj] min=@sum(routes:c*x);
+!The supply constraints;
+@for(warehouse(i):[sup]@sum(customer(j):x(i,j))&amp;lt;=a(i));
+!The demand constraints;
+@for(customer(j):[dem] @sum(warehouse(i):x(i,j))=b(j));
+end&lt;/p&gt;
+&lt;p&gt;使用LINGO软件计算6个发点8个收点的最小费用运输问题。产销单位运价如下表。
+销地
+产地	B1	B2	B3	B4	B5	B6	B7	B8	产量
+A1	6	2	6	7	4	2	5	9	60
+A2	4	9	5	3	8	5	8	2	55
+A3	5	2	1	9	7	4	3	3	51
+A4	7	6	7	3	9	2	7	1	43
+A5	2	3	9	5	7	2	6	5	41
+A6	5	5	2	2	8	1	4	3	52
+销量	35	37	22	32	41	32	43	38&lt;/p&gt;
+</content:encoded></item><item><title>Git常用合集</title><link>https://firefly.cuteleaf.cn/posts/post-16/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-16/</guid><pubDate>Wed, 22 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;一、克隆远端分支到本地并建立映射（克隆哪个分支branch就是哪个）&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git clone -b &amp;lt;branch&amp;gt; 仓库的url
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;二、获取远端最新代码&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git fetch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;三、拉取远端当前分支到本地分支（适用于多人开发一个分支）&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git pull
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;四、合并其他分支到当前所在分支(branch为远端分支的一个，和上面一个)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git merge origin/&amp;lt;branch&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;五、查看当前工作台状态&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git status
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;六、提交到暂存区&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git add .
+  git commit -m \&quot;更新日志\&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;七、提交到远端分支&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  git push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;如果VSCode控制台用的好的话，上面的五六七用不到&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+</content:encoded></item><item><title>Vue关闭微信浏览器</title><link>https://firefly.cuteleaf.cn/posts/post-10/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-10/</guid><pubDate>Tue, 21 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;比如提交表单成功后跳转到一个加群的二维码页面，点击一个按钮后需要关闭微信浏览器&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;document.addEventListener(
+        \&quot;WeixinJSBridgeReady\&quot;,
+        function () {
+          this.WeixinJSBridge.call(\&quot;closeWindow\&quot;); //安卓手机关闭代码
+        },
+        false
+      );
+      this.WeixinJSBridge.call(\&quot;closeWindow\&quot;); //苹果手机关闭代码
+    }
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>Vant4库中修改样式</title><link>https://firefly.cuteleaf.cn/posts/post-14/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/post-14/</guid><pubDate>Tue, 21 Nov 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;有时候内置的样式并不美观，需要自定义修改&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一、!importance修改（部分适用）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;拿到节点的class或id属性，通过css中的!importance提高权重覆盖样式&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二、根据官方提供的&lt;a href=&quot;https://vant-contrib.gitee.io/vant/#/zh-CN/config-provider&quot;&gt;ConfigProvider 覆盖&lt;/a&gt;进行修改（好用）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在template中需要修改样式外包裹&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;lt;van-config-provider :theme-vars=\&quot;themeVars\&quot;&amp;gt;
+  ...
+  &amp;lt;/van-config-provider&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在js或者ts中引用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import type { ConfigProviderThemeVars } from \&apos;vant\&apos;;
+
+const themeVars: ConfigProviderThemeVars = {
+  //修改原先的--van-padding-base: 4px; 为10px需要进行驼峰命名法
+  paddingBase: \&apos;10px\&apos;,
+};
+&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>在文章中嵌入视频</title><link>https://firefly.cuteleaf.cn/posts/video/</link><guid isPermaLink="true">https://firefly.cuteleaf.cn/posts/video/</guid><description>这篇文章演示如何在博客文章中嵌入视频。</description><pubDate>Mon, 01 Aug 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;只需从 YouTube 或其他平台复制嵌入代码，然后将其粘贴到 markdown 文件中。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: 在文章中嵌入视频
+published: 2023-10-19
+// ...
+---
+
+&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;https://www.youtube.com/embed/5gIf0_xpFPI?si=N1WTorLKL0uwLsU_&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allowfullscreen&amp;gt;&amp;lt;/iframe&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;YouTube&lt;/h2&gt;
+&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;https://www.youtube.com/embed/5gIf0_xpFPI?si=N1WTorLKL0uwLsU_&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen&amp;gt;&amp;lt;/iframe&amp;gt;&lt;/p&gt;
+&lt;h2&gt;Bilibili&lt;/h2&gt;
+&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;//player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&amp;amp;p=1&amp;amp;autoplay=0&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot; &amp;amp;autoplay=0&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
+</content:encoded></item></channel></rss>
