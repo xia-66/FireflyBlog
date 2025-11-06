@@ -51,7 +51,7 @@ export const siteConfig: SiteConfig = {
 
   // 追番配置
   bangumi: {
-    userId: "1163581", // 在此处设置你的Bangumi用户ID
+    userId: "951789", // 在此处设置你的Bangumi用户ID
   },
 
   // 文章页底部的"上次编辑时间"卡片开关
