@@ -6,5 +6,6 @@ description: ""
 category: "默认分类"
 draft: false
 ---
-
+```
 bash <(wget -qO- https://get.docker.com) && apt install docker-compose
+```
