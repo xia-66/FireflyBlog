@@ -7,7 +7,7 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
   title: "黑羽",
-  subtitle: "Demo site",
+  subtitle: "Blog",
   description:
     "Your description here.",
   keywords: [
