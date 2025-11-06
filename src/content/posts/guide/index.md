@@ -1,7 +1,7 @@
 ---
 title: Firefly 简单使用指南
 published: 2025-10-11
-pinned: true
+pinned: false
 description: "如何使用 Firefly 博客模板。"
 image: "./cover.webp"
 tags: ["Firefly", "博客", "Markdown", "使用指南"]
