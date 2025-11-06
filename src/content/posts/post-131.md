@@ -3,7 +3,7 @@ title: "WSL2相关操作"
 published: 2025-09-23
 updated: 2025-09-23
 description: ""
-category: "默认分类"
+category: "VPS相关"
 draft: false
 ---
 

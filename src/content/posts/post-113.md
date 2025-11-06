@@ -2,7 +2,7 @@
 title: "NPM更新版本号"
 published: 2025-04-12
 description: ""
-category: "默认分类"
+category: "代码相关"
 draft: false
 ---
 

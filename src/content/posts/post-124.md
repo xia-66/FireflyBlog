@@ -1,9 +1,9 @@
 ---
-title: "docker 一键安装"
+title: "Docker 一键安装"
 published: 2025-08-11
 updated: 2025-09-20
 description: ""
-category: "默认分类"
+category: "VPS相关"
 draft: false
 ---
 ```

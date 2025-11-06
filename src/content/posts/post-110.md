@@ -3,7 +3,7 @@ title: "版权年份及版本号自动更新"
 published: 2024-12-31
 updated: 2024-12-31
 description: ""
-category: "计算机相关"
+category: "软件相关"
 draft: false
 ---
 

@@ -3,7 +3,7 @@ title: "浏览器禁止右键、F12键复制及打开控制台"
 published: 2023-12-31
 updated: 2024-03-02
 description: ""
-category: "前端相关"
+category: "代码相关"
 draft: false
 ---
 

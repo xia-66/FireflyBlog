@@ -4,7 +4,7 @@ published: 2023-11-25
 updated: 2024-09-20
 description: ""
 tags: ["Win11","Frp","远程桌面","Ubuntu"]
-category: "计算机相关"
+category: "软件相关"
 draft: false
 ---
 

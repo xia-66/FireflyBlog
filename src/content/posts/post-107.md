@@ -4,7 +4,7 @@ published: 2024-12-18
 updated: 2024-12-19
 description: ""
 tags: ["Frp"]
-category: "计算机相关"
+category: "软件相关"
 draft: false
 ---
 

@@ -4,7 +4,7 @@ published: 2023-11-22
 updated: 2024-09-20
 description: ""
 tags: ["Git"]
-category: "计算机相关"
+category: "软件相关"
 draft: false
 ---
 

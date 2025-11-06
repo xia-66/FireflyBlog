@@ -4,7 +4,7 @@ published: 2024-09-23
 updated: 2024-09-29
 description: ""
 tags: ["Docker"]
-category: "计算机相关"
+category: "软件相关"
 draft: true
 ---
 

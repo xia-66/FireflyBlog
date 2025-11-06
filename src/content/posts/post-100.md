@@ -3,7 +3,7 @@ title: "极致远程桌面的几种方法"
 published: 2024-09-20
 updated: 2024-09-29
 description: ""
-category: "计算机相关"
+category: "软件相关"
 draft: false
 ---
 

@@ -3,7 +3,7 @@ title: "VPS一键脚本"
 published: 2025-05-12
 updated: 2025-07-12
 description: ""
-category: "默认分类"
+category: "VPS相关"
 draft: false
 ---
 

@@ -1,9 +1,9 @@
 ---
-title: "google服务器一键root用户"
+title: "Google服务器一键root用户"
 published: 2025-08-06
 updated: 2025-09-20
 description: ""
-category: "默认分类"
+category: "软件相关"
 draft: false
 ---
 
